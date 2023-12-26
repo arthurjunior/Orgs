@@ -1,6 +1,6 @@
 # Projeto Android para e-commerce de frutas/feira
 
-O projeto é um aplicativo Android desenvolvido em Kotlin para e-commerce de frutas e produtos da feira. O aplicativo permite aos usuários:
+O projeto é um aplicativo Android sendo desenvolvido em Kotlin para e-commerce de frutas e produtos da feira. O aplicativo permite aos usuários:
 
 - [x] Adicionar produtos/visualizar uma lista de produtos
 - [ ] Escolher os produtos desejados
