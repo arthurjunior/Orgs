@@ -11,6 +11,9 @@ import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ActivityListaProdutosBinding
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.model.Produto
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.Locale
 
 class ListaProdutosAdapter(
         private val context: Context,
@@ -33,7 +36,14 @@ class ListaProdutosAdapter(
         fun vincula(produto: Produto) {
             nome.text = produto.nome
             descricao.text = produto.descricao
-            valor.text = produto.valor.toPlainString()
+            val valorEmMoeda: String = formartBrl(produto.valor)
+            valor.text = valorEmMoeda
+        }
+
+        private fun formartBrl(valor: BigDecimal): String {
+            val formatador: NumberFormat = NumberFormat
+                .getCurrencyInstance(Locale("pt", "br"))
+            return formatador.format(valor)
         }
 
     }
