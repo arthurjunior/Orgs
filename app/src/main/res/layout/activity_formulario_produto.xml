@@ -11,6 +11,19 @@
         android:layout_height="wrap_content"
         tools:context=".ui.activity.FormularioProdutoActivity">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto__valor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="hint"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <EditText
             android:id="@+id/activity_formulario_produto_nome"
             android:layout_width="0dp"
@@ -20,7 +33,7 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/activity_produto_formulario_imagem" />
 
         <EditText
             android:id="@+id/activity_formulario_produto_descricaoProduto"
@@ -52,6 +65,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto__valor" />
+
+        <ImageView
+            android:id="@+id/activity_produto_formulario_imagem"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/produto_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
