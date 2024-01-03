@@ -20,4 +20,6 @@ O projeto é um aplicativo Android sendo desenvolvido em Kotlin para e-commerce 
 - [ ] **Bibliotecas:** [Retrofit](link_imagem_retrofit), [Room](link_imagem_room), [Glide](link_imagem_glide),  [FireBase](link_imagem_glide)
 
 ![image](https://github.com/arthurjunior/Orgs/assets/72569705/60dd266c-32b9-425a-99a2-7465e28ae342)
+![image](https://github.com/arthurjunior/Orgs/assets/72569705/76fd132a-5b7d-433d-a36e-81346be9494f)
+
   
