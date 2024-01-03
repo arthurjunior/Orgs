@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:hint="nome"
+            android:hint="Nome"
             app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto__valor"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
