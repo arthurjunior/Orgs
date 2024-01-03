@@ -38,7 +38,7 @@ class FormularioProdutoActivity :
         val campoNome = binding.activityFormularioProdutoNome
         val nome = campoNome.text.toString()
 
-        val campoDescricao = binding.activityFormularioProdutoDescricaoProduto
+        val campoDescricao = binding.activityFormularioProdutoDescricao
         val descricao = campoDescricao.text.toString()
 
         val campoValor = binding.activityFormularioProdutoValor

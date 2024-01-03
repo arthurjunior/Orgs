@@ -1,7 +1,9 @@
 package br.com.alura.orgs.ui.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.R
@@ -23,6 +25,13 @@ class ListaProdutosActivity : AppCompatActivity(R.layout.activity_lista_produtos
         configuraRecycleView()
         configuraFab()
         setContentView(binding.root)
+        AlertDialog.Builder(this)
+            .setTitle("Ola Mundo")
+            .setMessage("Bem-vindo ao meu primeiro app")
+            .setView(R.layout.activity_formulario_imagem)
+            .setPositiveButton("Confirma", { _, i ->  })
+            .setNegativeButton("Cancelar", { _, i ->  })
+            .show()
         }
 
         override fun onResume() {
