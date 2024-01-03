@@ -12,28 +12,24 @@
         tools:context=".ui.activity.FormularioProdutoActivity">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_formulario_produto_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto__valor">
+            android:layout_margin="16dp"
+            android:hint="nome"
+            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto__valor"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="hint"
+
 
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/activity_formulario_produto_nome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Imovel"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_produto_formulario_imagem" />
+
 
         <EditText
             android:id="@+id/activity_formulario_produto_descricaoProduto"
