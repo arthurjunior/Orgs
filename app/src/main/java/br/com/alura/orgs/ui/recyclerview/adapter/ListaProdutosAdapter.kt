@@ -2,50 +2,47 @@ package br.com.alura.orgs.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
-import br.com.alura.orgs.R
-import br.com.alura.orgs.databinding.ActivityListaProdutosBinding
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.model.Produto
 import java.math.BigDecimal
 import java.text.NumberFormat
-import java.util.Locale
+import java.util.*
 
 class ListaProdutosAdapter(
-        private val context: Context,
-        produtos: List<Produto>
-        ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
+    private val context: Context,
+    produtos: List<Produto>
+) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
     private val produtos = produtos.toMutableList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(context)
-        val binding =  ProdutoItemBinding.inflate(LayoutInflater.from(context), parent, false)
-        return ViewHolder(binding)
-    }
-
-    class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val nome = binding.activityFormularioProdutoNome
-        private val descricao = binding.produtoItemDescricao
-        private val valor = binding.activityFormularioProdutoValor
+    class ViewHolder(private val binding: ProdutoItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun vincula(produto: Produto) {
+            val nome = binding.produtoItemNome
             nome.text = produto.nome
+            val descricao = binding.produtoItemDescricao
             descricao.text = produto.descricao
-            val valorEmMoeda: String = formartBrl(produto.valor)
+            val valor = binding.produtoItemValor
+            val valorEmMoeda: String =
+                formataParaMoedaBrasileira(produto.valor)
             valor.text = valorEmMoeda
         }
 
-        private fun formartBrl(valor: BigDecimal): String {
+        private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
             val formatador: NumberFormat = NumberFormat
                 .getCurrencyInstance(Locale("pt", "br"))
             return formatador.format(valor)
         }
 
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(context)
+        val binding = ProdutoItemBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
