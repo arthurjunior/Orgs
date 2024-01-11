@@ -31,7 +31,7 @@ class ListaProdutosAdapter(
             val valorEmMoeda: String =
                 formataParaMoedaBrasileira(produto.valor)
             valor.text = valorEmMoeda
-            binding.imageView.load(R.drawable.imagem_padrao)
+            binding.imageView.load(produto.imagem)
         }
 
         private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
