@@ -8,8 +8,9 @@ import br.com.alura.orgs.R
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.databinding.FormularioImagemBinding
+import br.com.alura.orgs.extensions.tentaCarregarImagem
 import br.com.alura.orgs.model.Produto
-import coil.ComponentRegistry
+import br.com.alura.orgs.ui.dialog.FormularioImagemDialog
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
@@ -29,43 +30,8 @@ class FormularioProdutoActivity : AppCompatActivity() {
         setContentView(binding.root)
         configuraBotaoSalvar()
 
-        val imageLoader = ImageLoader.Builder(this)
-            .componentRegistry {
-                if (SDK_INT >= 28) {
-                    add(ImageDecoderDecoder(this@FormularioProdutoActivity))
-                } else {
-                    add(GifDecoder())
-                }
-            }.build()
-
-
         binding.activityFormularioProdutoImagem.setOnClickListener {
-            val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
-            bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
-                val url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-               // bindingFormularioImagem.formularioImagemImagemview.load(url)
-                bindingFormularioImagem.formularioImagemImagemview.load(
-                    url,
-                    imageLoader = imageLoader
-                )
-
-            }
-
-            AlertDialog.Builder(this)
-                .setView(bindingFormularioImagem.root)
-                .setPositiveButton("Confirmar") { _, _ ->
-                    url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                   // binding.activityFormularioProdutoImagem.load(url)
-                    binding.activityFormularioProdutoImagem.load(
-                        url,
-                        imageLoader
-                    )
-
-                }
-                .setNegativeButton("Cancelar") { _, _ ->
-
-                }
-                .show()
+            FormularioImagemDialog(this).dialog()
         }
     }
 
@@ -99,5 +65,4 @@ class FormularioProdutoActivity : AppCompatActivity() {
             imagem = url
         )
     }
-
 }
