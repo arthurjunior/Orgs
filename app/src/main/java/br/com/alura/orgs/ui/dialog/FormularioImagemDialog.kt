@@ -9,9 +9,13 @@ import br.com.alura.orgs.databinding.FormularioImagemBinding
 import br.com.alura.orgs.extensions.tentaCarregarImagem
 
 class FormularioImagemDialog (private val context: Context) {
-    fun dialog(quandoImagemCarregada: (imagem: String) -> Unit) {
+    fun dialog(urlPadrao: String? = null, quandoImagemCarregada: (imagem: String) -> Unit) {
         val binding = FormularioImagemBinding
             .inflate(LayoutInflater.from(context))
+        urlPadrao?.let {
+            binding.formularioImagemImagemview.tentaCarregarImagem(it)
+            binding.formularioImagemUrl.setText(it)
+        }
         binding.formularioImagemBotaoCarregar.setOnClickListener {
             val url = binding.formularioImagemUrl.text.toString()
             binding.formularioImagemImagemview.tentaCarregarImagem(url)
