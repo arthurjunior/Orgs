@@ -17,9 +17,10 @@ class ListaProdutosAdapter(
     produtos: List<Produto>
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
+    private var onProdutoClickListener: ((Produto) -> Unit)? = null
     private val produtos = produtos.toMutableList()
 
-    class ViewHolder(private val binding: ProdutoItemBinding) :
+    inner class ViewHolder(private val binding: ProdutoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun vincula(produto: Produto) {
@@ -33,14 +34,16 @@ class ListaProdutosAdapter(
             valor.text = valorEmMoeda
             val visibilidade = if(produto.imagem != null){
                 View.VISIBLE
-            }else{
+            } else {
                 View.GONE
             }
             binding.imageView.visibility = visibilidade
 
-
-
             binding.imageView.tentaCarregarImagem(produto.imagem)
+
+            binding.root.setOnClickListener {
+                onProdutoClickListener?.invoke(produto)
+            }
         }
 
         private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
@@ -48,8 +51,6 @@ class ListaProdutosAdapter(
                 .getCurrencyInstance(Locale("pt", "br"))
             return formatador.format(valor)
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -71,4 +72,9 @@ class ListaProdutosAdapter(
         notifyDataSetChanged()
     }
 
+    fun setOnProdutoClickListener(listener: (Produto) -> Unit) {
+        this.onProdutoClickListener = listener
+    }
 }
+
+

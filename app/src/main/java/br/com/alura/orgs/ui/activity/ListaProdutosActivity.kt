@@ -3,8 +3,10 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.alura.orgs.DetalhesProdutoActivity
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
+import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
 class ListaProdutosActivity : AppCompatActivity() {
@@ -18,13 +20,9 @@ class ListaProdutosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        //title = "Inicio"
+        title = "Inicio"
         configuraRecyclerView()
         configuraFab()
-        // debug para verificação
-       // FormularioImagemDialog(this).dialog { imagem ->
-       //     Log.i("ActivityFormularioImagem", "Imagem: $imagem ")
-       // }
     }
 
     override fun onResume() {
@@ -39,14 +37,32 @@ class ListaProdutosActivity : AppCompatActivity() {
         }
     }
 
-     private fun vaiParaFormularioProduto() {
+    private fun vaiParaFormularioProduto() {
         val intent = Intent(this, FormularioProdutoActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun vaiParaDetalheProduto(produto: Produto) {
+        val navegarDetalhe = Intent(this, DetalhesProdutoActivity::class.java)
+        navegarDetalhe.putExtra("INFOR_PRODUTO", produto)
+        startActivity(navegarDetalhe)
     }
 
     private fun configuraRecyclerView() {
         val recyclerView = binding.activityListaProdutosRecyclerView
         recyclerView.adapter = adapter
-    }
 
+        dao.buscaLista { produtos ->
+            adapter.atualiza(produtos)
+        }
+
+        adapter.setOnProdutoClickListener { produto ->
+            vaiParaDetalheProduto(produto)
+        }
+    }
 }
+
+
+
+
+

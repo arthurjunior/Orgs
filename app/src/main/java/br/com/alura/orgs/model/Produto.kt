@@ -1,5 +1,6 @@
 package br.com.alura.orgs.model
 
+import java.io.Serializable
 import java.math.BigDecimal
 
 data class Produto(
@@ -7,4 +8,4 @@ data class Produto(
         val descricao: String,
         val valor: BigDecimal,
         val imagem: String? = null
-)
+) : Serializable
