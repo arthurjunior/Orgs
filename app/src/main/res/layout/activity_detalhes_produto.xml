@@ -6,19 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".DetalhesProdutoActivity">
 
+    <ImageView
+        android:id="@+id/detalhe_imagem_imagemview"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/imagem_padrao" />
+
     <TextView
         android:id="@+id/txtNome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:ellipsize="end"
         android:fontFamily="@font/montserrat_bold"
         android:maxLines="1"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/detalhe_imagem_imagemview"
+        app:layout_constraintTop_toBottomOf="@id/detalhe_imagem_imagemview"
         tools:text="Nome do Produto" />
 
     <TextView

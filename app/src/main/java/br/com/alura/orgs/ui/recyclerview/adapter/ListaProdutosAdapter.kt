@@ -1,5 +1,6 @@
 package br.com.alura.orgs.ui.recyclerview.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,7 @@ class ListaProdutosAdapter(
             }
         }
 
-        private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
+         fun formataParaMoedaBrasileira(valor: BigDecimal): String {
             val formatador: NumberFormat = NumberFormat
                 .getCurrencyInstance(Locale("pt", "br"))
             return formatador.format(valor)
@@ -65,6 +66,7 @@ class ListaProdutosAdapter(
     }
 
     override fun getItemCount(): Int = produtos.size
+
 
     fun atualiza(produtos: List<Produto>) {
         this.produtos.clear()
