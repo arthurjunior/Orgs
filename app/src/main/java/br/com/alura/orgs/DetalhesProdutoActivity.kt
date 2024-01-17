@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.databinding.ActivityDetalhesProdutoBinding
 import br.com.alura.orgs.extensions.tentaCarregarImagem
 import br.com.alura.orgs.model.Produto
+import br.com.alura.orgs.model.Utils.Companion.formataParaMoedaBrasileira
 
 
 class DetalhesProdutoActivity : AppCompatActivity() {
@@ -23,14 +24,12 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
         if (produto != null) {
             exibirDetalhesProduto(binding, produto)
-        } else {
-            // Lida com o caso em que o objeto Produto não está presente no Intent
         }
     }
     private fun exibirDetalhesProduto(binding: ActivityDetalhesProdutoBinding, produto: Produto) {
         binding.txtNome.text = produto.nome
         binding.txtDescricao.text = produto.descricao
-        binding.txtValor.text = produto.valor.toString()
+        binding.txtValor.text = formataParaMoedaBrasileira(produto.valor)
         binding.detalheImagemImagemview.tentaCarregarImagem(produto.imagem)
     }
 

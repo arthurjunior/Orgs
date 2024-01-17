@@ -1,6 +1,5 @@
 package br.com.alura.orgs.ui.recyclerview.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.extensions.tentaCarregarImagem
 import br.com.alura.orgs.model.Produto
-import java.math.BigDecimal
-import java.text.NumberFormat
-import java.util.*
+import br.com.alura.orgs.model.Utils.Companion.formataParaMoedaBrasileira
 
 class ListaProdutosAdapter(
     private val context: Context,
@@ -47,11 +44,7 @@ class ListaProdutosAdapter(
             }
         }
 
-         fun formataParaMoedaBrasileira(valor: BigDecimal): String {
-            val formatador: NumberFormat = NumberFormat
-                .getCurrencyInstance(Locale("pt", "br"))
-            return formatador.format(valor)
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
