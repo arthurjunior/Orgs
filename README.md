@@ -9,7 +9,7 @@ O projeto é um aplicativo Android sendo desenvolvido em Kotlin para e-commerce 
 ## Funcionalidades
 
 - [x] **Lista de produtos:** O aplicativo exibe uma lista de produtos com informações como nome, descrição, preço e imagem.
-- [ ] **Detalhes do produto:** O usuário pode visualizar os detalhes de um produto, incluindo informações mais detalhadas sobre o produto, como ingredientes, tamanho e validade.
+- [x] **Detalhes do produto:** O usuário pode visualizar os detalhes de um produto, incluindo informações mais detalhadas sobre o produto, como ingredientes, tamanho e validade.
 - [ ] **Carrinho de compras:** O usuário pode adicionar produtos ao carrinho de compras e acompanhar o valor total da compra.
 - [ ] **Pagamento:** O usuário pode realizar o pagamento da compra por meio de cartão de crédito ou débito.
 
