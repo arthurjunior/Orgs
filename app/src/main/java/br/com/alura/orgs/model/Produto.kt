@@ -1,6 +1,7 @@
 package br.com.alura.orgs.model
 
 import android.icu.text.NumberFormat
+import androidx.room.Entity
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.Locale
