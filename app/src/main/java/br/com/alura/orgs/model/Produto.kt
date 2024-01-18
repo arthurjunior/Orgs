@@ -2,11 +2,13 @@ package br.com.alura.orgs.model
 
 import android.icu.text.NumberFormat
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.Locale
-
+@Entity
 data class Produto(
+        @PrimaryKey(autoGenerate = true) val id: Long = 0L,
         val nome: String,
         val descricao: String,
         val valor: BigDecimal,
