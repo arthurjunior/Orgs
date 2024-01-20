@@ -12,7 +12,7 @@ import br.com.alura.orgs.model.Utils.Companion.formataParaMoedaBrasileira
 
 class ListaProdutosAdapter(
     private val context: Context,
-    produtos: List<Produto>
+    produtos: List<Produto> = emptyList(),
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
     private var onProdutoClickListener: ((Produto) -> Unit)? = null

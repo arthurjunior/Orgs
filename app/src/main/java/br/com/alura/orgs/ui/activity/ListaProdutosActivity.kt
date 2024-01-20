@@ -3,16 +3,15 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.com.alura.orgs.DetalhesProdutoActivity
-import br.com.alura.orgs.dao.ProdutosDao
+import br.com.alura.orgs.database.appDataBase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
 import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
 class ListaProdutosActivity : AppCompatActivity() {
 
-    private val dao = ProdutosDao()
-    private val adapter = ListaProdutosAdapter(context = this, produtos = dao.buscaTodos())
+
+    private val adapter = ListaProdutosAdapter(context = this)
     private val binding by lazy {
         ActivityListaProdutosActivityBinding.inflate(layoutInflater)
     }
@@ -23,11 +22,15 @@ class ListaProdutosActivity : AppCompatActivity() {
         title = "Inicio"
         configuraRecyclerView()
         configuraFab()
+
     }
 
     override fun onResume() {
         super.onResume()
-        adapter.atualiza(dao.buscaTodos())
+        val db = appDataBase.instancia(this)
+
+        val produtosDao = db.produtoDao()
+        adapter.atualiza(produtosDao.buscarTodos())
     }
 
     private fun configuraFab() {
@@ -50,12 +53,12 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     private fun configuraRecyclerView() {
         val recyclerView = binding.activityListaProdutosRecyclerView
+        val db = appDataBase.instancia(this)
+        val produtosDao = db.produtoDao()
+        // Configura o adaptador e atualiza a lista de produtos
         recyclerView.adapter = adapter
-
-        dao.buscaLista { produtos ->
-            adapter.atualiza(produtos)
-        }
-
+        adapter.atualiza(produtosDao.buscarTodos())
+        // Configura o clique nos produtos
         adapter.setOnProdutoClickListener { produto ->
             vaiParaDetalheProduto(produto)
         }

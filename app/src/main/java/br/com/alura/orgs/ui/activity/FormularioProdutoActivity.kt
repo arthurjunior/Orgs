@@ -1,20 +1,13 @@
 package br.com.alura.orgs.ui.activity
 
-import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import br.com.alura.orgs.R
-import br.com.alura.orgs.dao.ProdutosDao
+import androidx.room.Room
+import br.com.alura.orgs.database.appDataBase
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
-import br.com.alura.orgs.databinding.FormularioImagemBinding
 import br.com.alura.orgs.extensions.tentaCarregarImagem
 import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.dialog.FormularioImagemDialog
-import coil.ImageLoader
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
-import coil.load
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
@@ -33,19 +26,27 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
         binding.activityFormularioProdutoImagem.setOnClickListener {
             FormularioImagemDialog(this)
-                 .dialog(url) { imagem ->
+                .dialog(url) { imagem ->
                     url = imagem
-                     binding.activityFormularioProdutoImagem.tentaCarregarImagem(url)
-                 }
+                    binding.activityFormularioProdutoImagem.tentaCarregarImagem(url)
+                }
         }
     }
 
     private fun configuraBotaoSalvar() {
         val botaoSalvar = binding.activityFormularioProdutoBotaoSalvar
-        val dao = ProdutosDao()
+        val db = Room.databaseBuilder(
+            this,
+            appDataBase::class.java,
+            "orgs.db"
+        ).allowMainThreadQueries()
+            .build()
+        val produtosDao = db.produtoDao()
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            dao.adiciona(produtoNovo)
+            produtosDao.salvar(
+                produtoNovo
+            )
             finish()
         }
     }
