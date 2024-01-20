@@ -17,7 +17,7 @@ O projeto é um aplicativo Android sendo desenvolvido em Kotlin para e-commerce 
 
 - [x] **Linguagem de programação:** Kotlin
 - [x] **Framework:** Android Jetpack
-- [ ] **Bibliotecas:** [Retrofit](link_imagem_retrofit), [Room](link_imagem_room), [Glide](link_imagem_glide),  [FireBase](link_imagem_glide)
+- [x] **Bibliotecas:** [Retrofit](link_imagem_retrofit), [Room](link_imagem_room), [Glide](link_imagem_glide),  [FireBase](link_imagem_glide)
 
 Durante o processo de criação pude trablahar bastante com ciclo de vidas ded uma activity
 
