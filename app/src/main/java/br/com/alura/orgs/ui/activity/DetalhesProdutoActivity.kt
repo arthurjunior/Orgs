@@ -1,7 +1,9 @@
 package br.com.alura.orgs.ui.activity
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ActivityDetalhesProdutoBinding
 import br.com.alura.orgs.extensions.tentaCarregarImagem
 import br.com.alura.orgs.model.Produto
@@ -25,6 +27,11 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         if (produto != null) {
             exibirDetalhesProduto(binding, produto)
         }
+    }
+  //Adicionando um menu, junto com inflate
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detalhe_produto, menu)
+        return super.onCreateOptionsMenu(menu)
     }
     private fun exibirDetalhesProduto(binding: ActivityDetalhesProdutoBinding, produto: Produto) {
         binding.txtNome.text = produto.nome
