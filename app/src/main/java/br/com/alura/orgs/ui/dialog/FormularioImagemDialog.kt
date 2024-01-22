@@ -22,7 +22,7 @@ class FormularioImagemDialog (private val context: Context) {
                     val url = formularioImagemUrl.text.toString()
                     formularioImagemImagemview.tentaCarregarImagem(url)
                 }
-
+                // Botão dialog para selecionar imagem
                 AlertDialog.Builder(context)
                     .setView(root)
                     .setPositiveButton("Confirmar") { _, _ ->
