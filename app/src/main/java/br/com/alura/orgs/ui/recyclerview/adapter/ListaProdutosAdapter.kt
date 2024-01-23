@@ -70,6 +70,7 @@ class ListaProdutosAdapter(
     fun setOnProdutoClickListener(listener: (Produto) -> Unit) {
         this.onProdutoClickListener = listener
     }
+
 }
 
 

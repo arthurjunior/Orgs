@@ -24,7 +24,6 @@ class ListaProdutosActivity : AppCompatActivity() {
         configuraFab()
 
     }
-
     override fun onResume() {
         super.onResume()
         val db = appDataBase.instancia(this)
@@ -38,6 +37,7 @@ class ListaProdutosActivity : AppCompatActivity() {
         fab.setOnClickListener {
             vaiParaFormularioProduto()
         }
+
     }
 
     private fun vaiParaFormularioProduto() {
