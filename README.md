@@ -21,7 +21,13 @@ O projeto é um aplicativo Android sendo desenvolvido em Kotlin para e-commerce 
 
 Durante o processo de criação pude trablahar bastante com ciclo de vidas ded uma activity
 
-![image](https://github.com/arthurjunior/Orgs/assets/72569705/60dd266c-32b9-425a-99a2-7465e28ae342)
-![image](https://github.com/arthurjunior/Orgs/assets/72569705/76fd132a-5b7d-433d-a36e-81346be9494f)
+![Screenshot_3](https://github.com/arthurjunior/Orgs/assets/72569705/4f4f7dda-8aec-49c4-91ea-37f6fe51ebc7)
+![Screenshot_4](https://github.com/arthurjunior/Orgs/assets/72569705/1bf157fc-479c-43fd-9e60-59d9df98e411)
+![Screenshot_5](https://github.com/arthurjunior/Orgs/assets/72569705/d8f04024-ec89-44e8-8b7d-c182f4b3c4bc)
+![Screenshot_6](https://github.com/arthurjunior/Orgs/assets/72569705/dfb38b3d-a327-42aa-8f2f-9cfa3ef466b3)
+
+
+
+
 
   
