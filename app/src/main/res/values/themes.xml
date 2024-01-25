@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Orgs" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color - Jedi Blue (mais escuro) -->
-        <item name="colorPrimary">#0D47A1</item>
+        <item name="colorPrimary">#94a84e</item>
         <item name="colorPrimaryVariant">#000000</item>
         <item name="colorOnPrimary">#FFFFFF</item>
 
         <!-- Secondary brand color - Sith Red (mais escuro) -->
-        <item name="colorSecondary">#0D47A1</item>
-        <item name="colorSecondaryVariant">#0D47A1</item>
+        <item name="colorSecondary">#94a84e</item>
+        <item name="colorSecondaryVariant">#94a84e</item>
         <item name="colorOnSecondary">#FFFFFF</item>
 
         <!-- Status bar color. -->
