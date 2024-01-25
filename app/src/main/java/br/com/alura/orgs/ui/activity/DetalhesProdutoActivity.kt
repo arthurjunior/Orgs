@@ -18,7 +18,6 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityDetalhesProdutoBinding = ActivityDetalhesProdutoBinding.inflate(layoutInflater)
@@ -28,6 +27,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         val produto = intent.getSerializableExtra("INFOR_PRODUTO") as? Produto
         if (produto != null) {
             exibirDetalhesProduto(binding, produto)
+            //Passando para uma propeti para poder chamar na função remover
             produtoSelecionado = produto
         }
     }
@@ -38,8 +38,10 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //acesso ao banco
         val db = appDataBase.instancia(this)
         val produtoDao = db.produtoDao()
+        //acesso ao banco
         when(item.itemId){
             R.id.menu_detalhes_produto_remover -> {
               produtoDao.excluir(produtoSelecionado)
@@ -49,10 +51,6 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
-
 
     private fun exibirDetalhesProduto(binding: ActivityDetalhesProdutoBinding, produto: Produto) {
         binding.txtNome.text = produto.nome
