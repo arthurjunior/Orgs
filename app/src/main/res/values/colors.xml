@@ -16,4 +16,5 @@
     <color name="colorSecondary">#43a047</color>
     <color name="colorSecondaryVariant">#76d275</color>
     <color name="colorOnSecondary">#ffffff</color>
+    <color name="backgrond">#f8f4f0</color>
 </resources>

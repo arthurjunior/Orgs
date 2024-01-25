@@ -2,12 +2,14 @@ package br.com.alura.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.database.appDataBase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
 import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
+private const val TAG = "ListaProdutosActivity"
 class ListaProdutosActivity : AppCompatActivity() {
 
 
@@ -15,6 +17,7 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityListaProdutosActivityBinding.inflate(layoutInflater)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,13 @@ class ListaProdutosActivity : AppCompatActivity() {
         // Configura o clique nos produtos
         adapter.setOnProdutoClickListener { produto ->
             vaiParaDetalheProduto(produto)
+        }
+
+        adapter.quandoClicaEmEditar = {
+            Log.i(TAG, "configuraRecyclerView: Editar $it")
+        }
+        adapter.quandoClicaEmRemover = {
+            Log.i(TAG, "configuraRecyclerView: Remover $it")
         }
     }
 }
