@@ -1,5 +1,6 @@
 package br.com.alura.orgs.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -47,7 +48,12 @@ class DetalhesProdutoActivity : AppCompatActivity() {
               produtoDao.excluir(produtoSelecionado)
                 finish()
             }
-            R.id.menu_detalhes_produto_editar -> {}
+            R.id.menu_detalhes_produto_editar -> {
+                Intent(this, FormularioProdutoActivity::class.java).apply {
+                    putExtra("INFO_PRODUTO",produtoSelecionado)
+                    startActivity(this)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
