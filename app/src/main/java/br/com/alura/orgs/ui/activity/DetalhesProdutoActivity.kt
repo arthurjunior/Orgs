@@ -2,6 +2,7 @@ package br.com.alura.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -15,42 +16,66 @@ import br.com.alura.orgs.model.Utils.Companion.formataParaMoedaBrasileira
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
-    private lateinit var produtoSelecionado: Produto
+    private var produtoId: Long? = null
+    private var produtoSelecionado: Produto? = null
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
     }
+
+    private val produtoDao by lazy {
+        appDataBase.instancia(this).produtoDao()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityDetalhesProdutoBinding = ActivityDetalhesProdutoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = "Produtos"
         // Recupera o objeto Produto do Intent
-        val produto = intent.getSerializableExtra("INFOR_PRODUTO") as? Produto
-        if (produto != null) {
-            exibirDetalhesProduto(binding, produto)
-            //Passando para uma propeti para poder chamar na função remover
-            produtoSelecionado = produto
+        produtoCarregadoDb(binding)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        produtoId?.let { id ->
+            produtoSelecionado = produtoDao.buscarPorId(id)
+            // logs para teste, para saber se esta passando os dados corretamente
+            Log.d("DetalhesProdutoActivity", "Produto carregado com ID: $id")
+        }
+
+        produtoSelecionado?.let {
+            // logs para teste, para saber se esta passando os dados corretamente
+            Log.d("DetalhesProdutoActivity", "Exibindo detalhes do produto: ${it.nome}")
+            exibirDetalhesProduto(binding, it)
         }
     }
-  //Adicionando um menu, junto com inflate
+
+    private fun produtoCarregadoDb(binding: ActivityDetalhesProdutoBinding) {
+        val produto = intent.getSerializableExtra("INFOR_PRODUTO") as? Produto
+        if (produto != null) {
+            produtoId = produto.id
+        }
+    }
+
+    //Adicionando um menu, junto com inflate
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detalhe_produto, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //acesso ao banco
-        val db = appDataBase.instancia(this)
-        val produtoDao = db.produtoDao()
-        //acesso ao banco
-        when(item.itemId){
+
+        when (item.itemId) {
             R.id.menu_detalhes_produto_remover -> {
-              produtoDao.excluir(produtoSelecionado)
+                produtoDao.excluir(produtoSelecionado)
                 finish()
             }
+
             R.id.menu_detalhes_produto_editar -> {
                 Intent(this, FormularioProdutoActivity::class.java).apply {
-                    putExtra("INFOR_PRODUTO",produtoSelecionado)
+                    putExtra("INFOR_PRODUTO", produtoSelecionado)
                     startActivity(this)
                 }
             }

@@ -14,8 +14,10 @@ interface ProdutoDao {
     @Insert
     fun salvar(produto: Produto)
     @Delete
-    fun excluir(produto: Produto)
+    fun excluir(produto: Produto?)
 
     @Update
     fun altera(produto: Produto)
+    @Query("SELECT * FROM Produto WHERE id = :id")
+    fun buscarPorId(id: Long) : Produto?
 }
