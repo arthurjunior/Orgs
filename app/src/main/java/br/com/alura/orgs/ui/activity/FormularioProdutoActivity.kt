@@ -36,6 +36,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
         if (produtoCarregado != null) {
             title = "Editar Produto"
             idProduto = produtoCarregado.id
+            url = produtoCarregado.imagem
             binding.activityFormularioProdutoImagem
                 .tentaCarregarImagem(produtoCarregado.imagem)
             binding.activityFormularioProdutoNome
@@ -58,9 +59,11 @@ class FormularioProdutoActivity : AppCompatActivity() {
         val produtosDao = db.produtoDao()
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            produtosDao.salvar(
-                produtoNovo
-            )
+            if (idProduto > 0){
+                produtosDao.altera(produtoNovo)
+            }else{
+                produtosDao.salvar(produtoNovo)
+            }
             finish()
         }
     }
@@ -79,6 +82,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
         }
 
         return Produto(
+            id = idProduto,
             nome = nome,
             descricao = descricao,
             valor = valor,
