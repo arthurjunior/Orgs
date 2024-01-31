@@ -16,6 +16,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
     private var url: String? = null
+    private var idProduto = 0L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +31,19 @@ class FormularioProdutoActivity : AppCompatActivity() {
                     url = imagem
                     binding.activityFormularioProdutoImagem.tentaCarregarImagem(url)
                 }
+        }
+        val produtoCarregado = intent.getSerializableExtra("INFOR_PRODUTO") as? Produto
+        if (produtoCarregado != null) {
+            title = "Editar Produto"
+            idProduto = produtoCarregado.id
+            binding.activityFormularioProdutoImagem
+                .tentaCarregarImagem(produtoCarregado.imagem)
+            binding.activityFormularioProdutoNome
+                .setText(produtoCarregado.nome)
+            binding.activityFormularioProdutoDescricao
+                .setText(produtoCarregado.descricao)
+            binding.activityFormularioProdutoValor
+                .setText(produtoCarregado.valor.toPlainString())
         }
     }
 
