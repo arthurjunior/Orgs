@@ -16,7 +16,8 @@ import br.com.alura.orgs.model.Utils.Companion.formataParaMoedaBrasileira
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
-    private var produtoId: Long? = null
+
+    private var produtoId: Long = 0L
     private var produtoSelecionado: Produto? = null
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
@@ -38,25 +39,26 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        buscaProduto()
+    }
 
-        produtoId?.let { id ->
-            produtoSelecionado = produtoDao.buscarPorId(id)
-            // logs para teste, para saber se esta passando os dados corretamente
-            Log.d("DetalhesProdutoActivity", "Produto carregado com ID: $id")
-        }
-
+    private fun buscaProduto() {
+        produtoSelecionado = produtoDao.buscarPorId(produtoId)
+        // logs para teste, para saber se esta passando os dados corretamente
+        Log.d("DetalhesProdutoActivity", "Produto carregado com ID: $produtoId")
         produtoSelecionado?.let {
             // logs para teste, para saber se esta passando os dados corretamente
             Log.d("DetalhesProdutoActivity", "Exibindo detalhes do produto: ${it.nome}")
             exibirDetalhesProduto(binding, it)
-        }
+        } ?: finish()
     }
 
     private fun produtoCarregadoDb(binding: ActivityDetalhesProdutoBinding) {
-        val produto = intent.getSerializableExtra("INFOR_PRODUTO") as? Produto
-        if (produto != null) {
-            produtoId = produto.id
-        }
+
+       produtoId = intent.getLongExtra(CHAVE_PRDUTO_ID,0L)
+       // if (produto != null) {
+        //    produtoId = produto.id
+       // }
     }
 
     //Adicionando um menu, junto com inflate
