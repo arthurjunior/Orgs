@@ -3,6 +3,7 @@ package br.com.alura.orgs.database.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import br.com.alura.orgs.model.Produto
@@ -11,8 +12,8 @@ import br.com.alura.orgs.model.Produto
 interface ProdutoDao {
     @Query("SELECT * FROM Produto")
     fun buscarTodos(): List<Produto>
-    @Insert
-    fun salvar(produto: Produto)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun salvar(vararg produto: Produto)
     @Delete
     fun excluir(produto: Produto?)
 

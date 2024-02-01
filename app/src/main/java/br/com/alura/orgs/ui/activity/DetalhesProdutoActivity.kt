@@ -77,7 +77,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
             R.id.menu_detalhes_produto_editar -> {
                 Intent(this, FormularioProdutoActivity::class.java).apply {
-                    putExtra("INFOR_PRODUTO", produtoSelecionado)
+                    putExtra(CHAVE_PRDUTO_ID, produtoId)
                     startActivity(this)
                 }
             }

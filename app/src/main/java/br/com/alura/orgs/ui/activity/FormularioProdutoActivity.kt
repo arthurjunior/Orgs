@@ -16,7 +16,16 @@ class FormularioProdutoActivity : AppCompatActivity() {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
     private var url: String? = null
-    private var idProduto = 0L
+    private var produtoId = 0L
+    val produtosDao by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            appDataBase::class.java,
+            "orgs.db"
+        ).allowMainThreadQueries()
+            .build()
+            .produtoDao()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,38 +41,48 @@ class FormularioProdutoActivity : AppCompatActivity() {
                     binding.activityFormularioProdutoImagem.tentaCarregarImagem(url)
                 }
         }
-        val produtoCarregado = intent.getSerializableExtra("INFOR_PRODUTO") as? Produto
-        if (produtoCarregado != null) {
+        tentaCarregarProduto()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tentaBuscarProduto()
+    }
+
+    private fun tentaBuscarProduto() {
+        produtosDao.buscarPorId(produtoId)?.let {
             title = "Editar Produto"
-            idProduto = produtoCarregado.id
-            url = produtoCarregado.imagem
-            binding.activityFormularioProdutoImagem
-                .tentaCarregarImagem(produtoCarregado.imagem)
-            binding.activityFormularioProdutoNome
-                .setText(produtoCarregado.nome)
-            binding.activityFormularioProdutoDescricao
-                .setText(produtoCarregado.descricao)
-            binding.activityFormularioProdutoValor
-                .setText(produtoCarregado.valor.toPlainString())
+            preencherCampos(it)
         }
+    }
+
+    private fun tentaCarregarProduto() {
+        produtoId = intent.getLongExtra(CHAVE_PRDUTO_ID, 0L)
+    }
+
+    private fun preencherCampos(produto: Produto) {
+        url = produto.imagem
+        binding.activityFormularioProdutoImagem
+            .tentaCarregarImagem(produto.imagem)
+        binding.activityFormularioProdutoNome
+            .setText(produto.nome)
+        binding.activityFormularioProdutoDescricao
+            .setText(produto.descricao)
+        binding.activityFormularioProdutoValor
+            .setText(produto.valor.toPlainString())
     }
 
     private fun configuraBotaoSalvar() {
         val botaoSalvar = binding.activityFormularioProdutoBotaoSalvar
-        val db = Room.databaseBuilder(
-            this,
-            appDataBase::class.java,
-            "orgs.db"
-        ).allowMainThreadQueries()
-            .build()
-        val produtosDao = db.produtoDao()
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            if (idProduto > 0){
+            /*if (produtoId > 0){
                 produtosDao.altera(produtoNovo)
             }else{
                 produtosDao.salvar(produtoNovo)
-            }
+            }*/
+            produtosDao.salvar(produtoNovo)
             finish()
         }
     }
@@ -82,7 +101,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
         }
 
         return Produto(
-            id = idProduto,
+            id = produtoId,
             nome = nome,
             descricao = descricao,
             valor = valor,
