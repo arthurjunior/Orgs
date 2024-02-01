@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.database.appDataBase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
-import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
 private const val TAG = "ListaProdutosActivity"
@@ -48,9 +47,9 @@ class ListaProdutosActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun vaiParaDetalheProduto(produto: Produto) {
+    private fun vaiParaDetalheProduto(produtoId: Long) {
         val navegarDetalhe = Intent(this, DetalhesProdutoActivity::class.java)
-        navegarDetalhe.putExtra("INFOR_PRODUTO", produto)
+        navegarDetalhe.putExtra(CHAVE_PRDUTO_ID, produtoId)
         startActivity(navegarDetalhe)
     }
 
@@ -63,7 +62,7 @@ class ListaProdutosActivity : AppCompatActivity() {
         adapter.atualiza(produtosDao.buscarTodos())
         // Configura o clique nos produtos
         adapter.setOnProdutoClickListener { produto ->
-            vaiParaDetalheProduto(produto)
+            vaiParaDetalheProduto(produto.id)
         }
 
         adapter.quandoClicaEmEditar = {
