@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_sort"
+        android:icon="@drawable/ic_filtro"
+        android:title="Ordenar"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_sort_name"
+                android:title="Nome" />
+            <item
+                android:id="@+id/menu_sort_price"
+                android:title="Preço" />
+            <!-- Adicione outros itens conforme necessário -->
+        </menu>
+    </item>
+    <!-- Adicione outros itens de menu conforme necessário -->
+</menu>
