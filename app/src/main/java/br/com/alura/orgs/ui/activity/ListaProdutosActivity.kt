@@ -3,13 +3,9 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import br.com.alura.orgs.R
 import br.com.alura.orgs.database.appDataBase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
-import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
 private const val TAG = "ListaProdutosActivity"
@@ -20,6 +16,7 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityListaProdutosActivityBinding.inflate(layoutInflater)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,44 +71,6 @@ class ListaProdutosActivity : AppCompatActivity() {
         adapter.quandoClicaEmRemover = {
             Log.i(TAG, "configuraRecyclerView: Remover $it")
         }
-    }
-    //Filtro do listener
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_product_list, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_sort_name -> {
-                sortBy("name")
-                return true
-            }
-            R.id.menu_sort_price -> {
-                sortBy("price")
-                return true
-            }
-            // Adicionar outros itens de menu conforme necessário
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun sortBy(attribute: String) {
-        val db = appDataBase.instancia(this)
-        val produtosDao = db.produtoDao()
-
-        val sortedProducts = when (attribute) {
-            "name" -> produtosDao.buscarTodos().sortedBy { it.nome }
-            "price" -> produtosDao.buscarTodos().sortedBy { it.valor }
-            // Adicionar outras opções de ordenação conforme necessário
-            else -> return
-        }
-
-        updateAdapter(sortedProducts)
-    }
-
-    private fun updateAdapter(sortedProducts: List<Produto>) {
-        adapter.atualiza(sortedProducts)
     }
 }
 
