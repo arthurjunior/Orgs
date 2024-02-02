@@ -8,13 +8,27 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/menu_sort_name"
-                android:title="Nome" />
+                android:id="@+id/menu_sort_name_asc"
+                android:title="Nome Ascendente" />
             <item
-                android:id="@+id/menu_sort_price"
-                android:title="Preço" />
-            <!-- Adicione outros itens conforme necessário -->
+                android:id="@+id/menu_sort_name_desc"
+                android:title="Nome Descendente" />
+            <item
+                android:id="@+id/menu_sort_description_asc"
+                android:title="Descrição Ascendente" />
+            <item
+                android:id="@+id/menu_sort_description_desc"
+                android:title="Descrição Descendente" />
+            <item
+                android:id="@+id/menu_sort_value_asc"
+                android:title="Valor Ascendente" />
+            <item
+                android:id="@+id/menu_sort_value_desc"
+                android:title="Valor Descendente" />
+            <item
+                android:id="@+id/menu_sort_none"
+                android:title="Sem Ordenação" />
         </menu>
     </item>
-    <!-- Adicione outros itens de menu conforme necessário -->
 </menu>
+

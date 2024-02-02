@@ -84,28 +84,29 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_sort_name -> {
-                sortBy("name")
-                return true
-            }
-            R.id.menu_sort_price -> {
-                sortBy("price")
-                return true
-            }
+            //logica de orndenação do filtro
+            R.id.menu_sort_name_asc -> sortBy("name", true)
+            R.id.menu_sort_name_desc -> sortBy("name", false)
+            R.id.menu_sort_description_asc -> sortBy("description", true)
+            R.id.menu_sort_description_desc -> sortBy("description", false)
+            R.id.menu_sort_value_asc -> sortBy("value", true)
+            R.id.menu_sort_value_desc -> sortBy("value", false)
+            R.id.menu_sort_none -> sortBy("none", true)
             // Adicionar outros itens de menu conforme necessário
             else -> return super.onOptionsItemSelected(item)
         }
+        return true
     }
 
-    private fun sortBy(attribute: String) {
+    private fun sortBy(attribute: String, ascending: Boolean) {
         val db = appDataBase.instancia(this)
         val produtosDao = db.produtoDao()
 
         val sortedProducts = when (attribute) {
-            "name" -> produtosDao.buscarTodos().sortedBy { it.nome }
-            "price" -> produtosDao.buscarTodos().sortedBy { it.valor }
-            // Adicionar outras opções de ordenação conforme necessário
-            else -> return
+            "name" -> if (ascending) produtosDao.buscarTodos().sortedBy { it.nome } else produtosDao.buscarTodos().sortedByDescending { it.nome }
+            "description" -> if (ascending) produtosDao.buscarTodos().sortedBy { it.descricao } else produtosDao.buscarTodos().sortedByDescending { it.descricao }
+            "value" -> if (ascending) produtosDao.buscarTodos().sortedBy { it.valor } else produtosDao.buscarTodos().sortedByDescending { it.valor }
+            else -> produtosDao.buscarTodos() // Sem ordenação
         }
 
         updateAdapter(sortedProducts)
