@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.R
 import br.com.alura.orgs.database.appDataBase
@@ -16,9 +17,13 @@ private const val TAG = "ListaProdutosActivity"
 class ListaProdutosActivity : AppCompatActivity() {
 
 
+    private var produtoId: Long = 0L
     private val adapter = ListaProdutosAdapter(context = this)
     private val binding by lazy {
         ActivityListaProdutosActivityBinding.inflate(layoutInflater)
+    }
+    private val produtoDao by lazy {
+        appDataBase.instancia(this).produtoDao()
     }
 
 
@@ -28,14 +33,21 @@ class ListaProdutosActivity : AppCompatActivity() {
         title = "Inicio"
         configuraRecyclerView()
         configuraFab()
+        CarregarProdutoDb()
 
     }
+
+    private fun CarregarProdutoDb() {
+        produtoId = intent.getLongExtra(CHAVE_PRDUTO_ID, 0L)
+    }
+
     override fun onResume() {
         super.onResume()
         val db = appDataBase.instancia(this)
 
         val produtosDao = db.produtoDao()
         adapter.atualiza(produtosDao.buscarTodos())
+
     }
 
     private fun configuraFab() {
@@ -57,26 +69,44 @@ class ListaProdutosActivity : AppCompatActivity() {
         startActivity(navegarDetalhe)
     }
 
+
     private fun configuraRecyclerView() {
         val recyclerView = binding.activityListaProdutosRecyclerView
         val db = appDataBase.instancia(this)
         val produtosDao = db.produtoDao()
+
         // Configura o adaptador e atualiza a lista de produtos
         recyclerView.adapter = adapter
         adapter.atualiza(produtosDao.buscarTodos())
+
         // Configura o clique nos produtos
         adapter.setOnProdutoClickListener { produto ->
             vaiParaDetalheProduto(produto.id)
         }
 
-        adapter.quandoClicaEmEditar = {
-            Log.i(TAG, "configuraRecyclerView: Editar $it")
+        // Configura o clique em editar na RecyclerView
+        adapter.quandoClicaEmEditar = { produto ->
+            Intent(this, FormularioProdutoActivity::class.java).apply {
+                putExtra(CHAVE_PRDUTO_ID, produto.id)
+                startActivity(this)
+            }
         }
-        adapter.quandoClicaEmRemover = {
-            Log.i(TAG, "configuraRecyclerView: Remover $it")
+
+        // Configura o clique em remover na RecyclerView
+        adapter.quandoClicaEmRemover = { produto ->
+            AlertDialog.Builder(this)
+                .setTitle("Remover Produto")
+                .setMessage("Deseja realmente remover este produto?")
+                .setPositiveButton("Sim") { _, _ ->
+                    produtosDao.excluir(produto)
+                    adapter.atualiza(produtosDao.buscarTodos())
+                }
+                .setNegativeButton("Não", null)
+                .show()
         }
     }
-// inflando filtro e aplicando lista ordenada
+
+    // inflando filtro e aplicando lista ordenada
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_product_list, menu)
         return true

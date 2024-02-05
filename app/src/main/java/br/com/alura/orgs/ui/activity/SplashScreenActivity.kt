@@ -19,6 +19,6 @@ supportActionBar?.hide()
             val intent = Intent(this,ListaProdutosActivity::class.java)
             startActivity(intent)
             finish()
-        },3000)
+        },2000)
     }
 }
